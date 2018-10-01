@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # 만들어질 Preset 갯수
 how_many_create = 100
+Robot_name = 'GCS30-0006'
 
 # 웹 드라이버 선언
 driver = webdriver.Chrome('chromedriver.exe')
@@ -25,7 +26,7 @@ for i in range(how_many_create):
     # 특수문자 + 띄어쓰기 + 영어 + 한글 + + 탭 + 숫자(번호)
     driver.find_element_by_id("mat-input-0").send_keys("@ A한\t" + i)
     driver.find_element_by_xpath("//span[text()='AUTO']").click()
-    driver.find_element_by_xpath("//span[text()='"+ +"']").click()
+    driver.find_element_by_xpath("//span[text()='"+ Robot_name +"']").click()
 
 
 # 웹 페이지 종료
