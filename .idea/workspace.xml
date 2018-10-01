@@ -12,7 +12,10 @@
     <session id="352540256">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+<<<<<<< HEAD
           <entry key="project.closed" value="1" />
+=======
+>>>>>>> 심준열
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -37,8 +40,11 @@
           <entry key="Python" value="35" />
         </counts>
       </usages-collector>
+<<<<<<< HEAD
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.vcs.git.usages" />
+=======
+>>>>>>> 심준열
     </session>
   </component>
   <component name="FileEditorManager">
@@ -148,6 +154,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1913" y="-7" width="1550" height="838" extended-state="6" />
+<<<<<<< HEAD
+=======
+    <editor active="true" />
+>>>>>>> 심준열
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
