@@ -24,8 +24,8 @@ driver.find_element_by_xpath("//span[text()='Sign In']").click()
 # 잡 생성
 for i in range(how_many_create):
     waituntil(driver, "xpath", "//mat-icon[text()='playlist_add']").click()
+
     # 이름 설정 띄어쓰기 + 특수문자 + 영어 + 한글 + 숫자(번호)
-    # driver.find_element_by_xpath("//button[@ng-reflect-placeholder='/signup']").click()
     waituntil(driver, "name", "jobTitle").clear()
     waituntil(driver, "name", "jobTitle").send_keys(" @A한" + str(i))
 
@@ -52,6 +52,3 @@ for i in range(how_many_create):
 
 # 웹 페이지 종료
 driver.close()
-
-# xpath
-# driver.find_element_by_xpath("//button[@ng-reflect-router-link='/signup']").click()
