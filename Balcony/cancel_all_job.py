@@ -15,5 +15,4 @@ driver.get('http://192.168.100.130:4728/')
 driver.find_element_by_id("username").send_keys("admin")
 driver.find_element_by_id("password").send_keys("1234")
 driver.find_element_by_xpath("//span[text()='Sign In']").click()
-
 title.click()
