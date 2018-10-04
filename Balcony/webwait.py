@@ -12,6 +12,8 @@ def waituntil(driver, kinds, path = ""):
         return wait.until(EC.element_to_be_clickable((By.NAME, path)))
     elif kinds == 'id':
         return wait.until(EC.element_to_be_clickable((By.ID, path)))
+    elif kinds == 'css':
+        return wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, path)))
     elif kinds == 'alert':
         wait.until(EC.alert_is_present(),'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
 
