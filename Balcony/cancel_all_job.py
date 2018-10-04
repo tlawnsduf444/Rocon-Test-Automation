@@ -1,7 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+from webwait import waituntil
 
 driver = webdriver.Chrome('../chromedriver.exe')
 
@@ -16,4 +14,10 @@ driver.find_element_by_id("username").send_keys("admin")
 driver.find_element_by_id("password").send_keys("1234")
 driver.find_element_by_xpath("//span[text()='Sign In']").click()
 
-title.click()
+# pending 된 것들 배열화
+pending_list = driver.find_elements_by_class_name("fc-title")
+for pending in pending_list:
+    if pending.text == "pending":
+        pending.click()
+        waituntil(driver, "xpath", "//span[contains(.,'Cancel This Job')]").click()
+driver.close()

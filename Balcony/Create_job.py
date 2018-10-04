@@ -1,21 +1,6 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 from time import sleep
-
-
-def checkobj(path, kinds):
-    if kinds == 'xpath':
-        return WebDriverWait(driver, 10) \
-            .until(EC.element_to_be_clickable((By.XPATH, path)))
-    elif kinds == 'name':
-        return WebDriverWait(driver, 10) \
-            .until(EC.element_to_be_clickable((By.NAME, path)))
-    elif kinds == 'id':
-        return WebDriverWait(driver, 10) \
-            .until(EC.element_to_be_clickable((By.ID, path)))
-
+from selenium import webdriver
+from webwait import waituntil
 
 # 만들어질 Preset 갯수, 로봇 , 태스크 이름
 how_many_create = 100
@@ -38,34 +23,32 @@ driver.find_element_by_xpath("//span[text()='Sign In']").click()
 
 # 잡 생성
 for i in range(how_many_create):
-    checkobj("//mat-icon[text()='playlist_add']", "xpath").click()
+    waituntil(driver, "xpath", "//mat-icon[text()='playlist_add']").click()
+
     # 이름 설정 띄어쓰기 + 특수문자 + 영어 + 한글 + 숫자(번호)
-    # driver.find_element_by_xpath("//button[@ng-reflect-placeholder='/signup']").click()
-    checkobj("jobTitle", "name").clear()
-    checkobj("jobTitle", "name").send_keys(" @A한" + str(i))
+    waituntil(driver, "name", "jobTitle").clear()
+    waituntil(driver, "name", "jobTitle").send_keys(" @A한" + str(i))
 
     # 로봇 이름 설정
-    checkobj("//span[contains(.,'AUTO')]", "xpath").click()
-    checkobj("//span[contains(.,'" + robot_name + "')]", "xpath").click()
+    waituntil(driver, "xpath", "//span[contains(.,'AUTO')]").click()
+    waituntil(driver, "xpath", "//span[contains(.,'" + robot_name + "')]").click()
 
     # 태스크 설정
-    checkobj("//span[contains(.,'Tasks')]", "xpath").click()
-    checkobj("//mat-option[@ng-reflect-message='" + task_name + "']", "xpath").click()
+    waituntil(driver, "xpath", "//span[contains(.,'Tasks')]").click()
+    waituntil(driver, "xpath", "//mat-option[@ng-reflect-message='" + task_name + "']").click()
 
     # 행동 설정
-    checkobj("//span[contains(.,'Add Instruction')]", "xpath").click()
-    checkobj("//span[contains(.,'Empty Instruction')]", "xpath").click()
-    checkobj("//span[contains(.,'action')]", "xpath").click()
-    checkobj("//span[contains(.,'move')]", "xpath").click()
+    waituntil(driver, "xpath", "//span[contains(.,'Add Instruction')]").click()
+    waituntil(driver, "xpath", "//span[contains(.,'Empty Instruction')]").click()
+    waituntil(driver, "xpath", "//span[contains(.,'action')]").click()
+    waituntil(driver, "xpath", "//span[contains(.,'move')]").click()
 
     # ok버튼 클릭
-    checkobj("//span[text()='Submit']", "xpath").click()
-    WebDriverWait(driver, 3).until(EC.alert_is_present(),
-                                   'Timed out waiting for PA creation ' + 'confirmation popup to appear.')
+    waituntil(driver, "xpath", "//span[text()='Submit']").click()
+    
+    # 알람 클릭
+    waituntil(driver, "alert")
     driver.switch_to_alert().accept()
 
 # 웹 페이지 종료
 driver.close()
-
-# xpath
-# driver.find_element_by_xpath("//button[@ng-reflect-router-link='/signup']").click()
