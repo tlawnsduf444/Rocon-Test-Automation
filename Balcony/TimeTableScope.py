@@ -1,8 +1,7 @@
 from selenium import webdriver
 from webwait import waituntil
-from datetime import datetime
+from Result_generator import saveimg, generate_result, generate_folder
 import random
-import os
 
 # 만들어질 Preset 갯수, 로봇 , 태스크 이름
 repeat = 100
@@ -10,17 +9,12 @@ result = []
 pass_count = 0
 img_list = []
 imgs = ''
+folder = generate_folder("TimeTableScope")
 
 hightimetable = ["0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00",
              "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"]
 bottomtimtable = ["12am","1am","2am","3am","4am","5am","6am","7am","8am","9am","10am", "11am", "12pm",
                   "1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm", "11pm"]
-
-# 폴더 생성
-folder = "C:/Users/tlawn/OneDrive/바탕 화면/Rocon Test Automation/Balcony/Test Result/TimeTableScope/" + datetime.now().strftime('%H%M%S')
-
-if not os.path.exists(folder):
-    os.makedirs(folder)
 
 # 웹 드라이버 선언
 driver = webdriver.Chrome('../chromedriver.exe')
@@ -57,26 +51,11 @@ for i in range(repeat):
                 pass_count += 1
     except:
         driver.save_screenshot(folder + "/Error" + str(i) + ".png")
-        img_list.append("<img src='Error" + str(i) + ".png' width='500' height='300'>")
+        saveimg(i)
 
 # 웹 페이지 종료
 driver.close()
-
-for img in img_list:
-    imgs += img
-
-pass_result = "성공률 : " + str(pass_count) + '/' + str(repeat) + " " + "%.2f"%(int(pass_count)/int(repeat)*100) + '%%'
-html_str = "<html><body>" + imgs + pass_result + "</body></html>"
-
-with open(folder + "/Test result.html", "a") as html:
-    html.write(html_str)
-
-with open(folder + "/raw data.txt", "a") as html:
-    html.write("TopMin" + "\t" + "BotMin" + "\t" + "TopMax" + "\t"  "BotMax" + "\t" )
-    for r in result:
-        html.write("\n")
-        for l in r:
-            html.write(str(l) + "\t")
+generate_result(repeat, pass_count, ["BotMin","TopMin","BotMax","TopMax"], result)
 
 #시간 초기화
 """while timetext[1].text != "0:00":
